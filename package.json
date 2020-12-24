@@ -1,0 +1,46 @@
+{
+  "name": "@react-irc",
+  "version": "0.0.1",
+  "description": "Handful of utilities you should keep in your toolbelt to handle IRC connectivity in React",
+  "author": "Victor Gazolli <victorlpgazolli@gmail.com> (https://github.com/victorlpgazolli)",
+  "source": "src/index.js",
+  "main": "dist/react-irc.js",
+  "module": "dist/react-irc.esm.js",
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "lint": "eslint --ext .js,.ts,.tsx {src,test}/**/*.{ts,tsx}",
+    "precommit": "npm run lint",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorlpgazolli/react-irc.git"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "irc",
+    "redux"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/victorlpgazolli/react-irc/issues"
+  },
+  "homepage": "https://github.com/victorlpgazolli/react-irc#readme",
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.35.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "dependencies": {
+    "irc-framework": "^4.9.0",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
+}

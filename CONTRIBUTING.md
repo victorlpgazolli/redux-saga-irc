@@ -1,0 +1,2 @@
+# Contributing Guide
+1. Before submitting a PR please comment in the relevant issue (or create a new one if it doesn't exist yet) to discuss all the requirements (this will prevent rejecting the PR and wasting your work).
