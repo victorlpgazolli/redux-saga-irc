@@ -66,12 +66,15 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const {
         host,
+        removeAfterDisconnect,
       } = action.payload;
 
-      delete state.servers[host]
-      delete state.channels[host]
-      delete state.users[host]
-      delete state.connections[host]
+      if (removeAfterDisconnect) {
+        delete state.servers[host]
+        delete state.channels[host]
+        delete state.users[host]
+        delete state.connections[host]
+      }
 
       return state
     }

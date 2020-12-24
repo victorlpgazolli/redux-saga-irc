@@ -39,7 +39,8 @@ export const connect = ({
   }
 })
 export const disconnect = ({
-  connection
+  connection,
+  removeAfterDisconnect = false
 }) => {
   try {
     const host = connection.options.host;
@@ -49,7 +50,8 @@ export const disconnect = ({
     return {
       type: actionTypes.DISCONNECT,
       payload: {
-        host
+        host,
+        removeAfterDisconnect,
       },
     }
 
