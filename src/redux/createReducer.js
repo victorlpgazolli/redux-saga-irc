@@ -47,7 +47,9 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         host,
       } = action.payload;
 
-      if (!state.connections[host]) return state;
+      const hasHost = state.connections && state.connections.hasOwnProperty(host);
+
+      if (!hasHost) return state;
 
       const channel = state.connections[host].channel(channelName);
 
@@ -76,7 +78,9 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         removeAfterDisconnect,
       } = action.payload;
 
-      if (!state.connection[host]) return state;
+      const hasHost = state.connections && state.connections.hasOwnProperty(host);
+
+      if (!hasHost) return state;
 
       state.connection[host].quit();
 
