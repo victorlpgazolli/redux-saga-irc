@@ -38,3 +38,27 @@ export const connect = ({
     console.log(error);
   }
 })
+
+export const join = ({
+  channel,
+  connection = new Client,
+}) => new Promise((resolve, reject) => {
+  try {
+    console.log({ connection });
+    const channelConn = connection.channel(channel)
+    channelConn.join();
+
+    const users = channelConn.users;
+    console.log({ channelConn });
+    return {
+      type: actionTypes.JOIN,
+      payload: {
+        channel: channel,
+        users: users,
+      },
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+})

@@ -1,4 +1,4 @@
-import { REGISTERED } from "./actionTypes";
+import { JOIN, REGISTERED } from "./actionTypes";
 
 const operationStates = {
   loadLoading: false,
@@ -38,6 +38,26 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         connections: {
           ...state.connections,
           [host]: action.payload.connection
+        }
+      }
+    },
+    [JOIN]: () => {
+      const {
+        channel,
+        users,
+        host,
+      } = action.payload
+      const channels = state.channels[host] || [];
+
+      return {
+        ...state,
+        channels: {
+          ...state.channels,
+          [host]: [...channels, channel],
+        },
+        users: {
+          ...state.users,
+          [host]: users
         }
       }
     }
