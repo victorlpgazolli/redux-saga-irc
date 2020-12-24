@@ -1,4 +1,4 @@
-import { JOIN, REGISTERED } from "./actionTypes";
+import { DISCONNECT, JOIN, REGISTERED } from "./actionTypes";
 
 const operationStates = {
   loadLoading: false,
@@ -61,6 +61,19 @@ export default function irc(state = INITIAL_STATE, action = {}) {
           [host]: users
         }
       }
+    },
+    [DISCONNECT]: () => {
+
+      const {
+        host,
+      } = action.payload;
+
+      delete state.servers[host]
+      delete state.channels[host]
+      delete state.users[host]
+      delete state.connections[host]
+
+      return state
     }
   };
 

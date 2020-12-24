@@ -38,6 +38,25 @@ export const connect = ({
     console.log(error);
   }
 })
+export const disconnect = ({
+  connection
+}) => {
+  try {
+    const host = connection.options.host;
+
+    connection.quit();
+
+    return {
+      type: actionTypes.DISCONNECT,
+      payload: {
+        host
+      },
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const join = ({
   channel: channelName,
