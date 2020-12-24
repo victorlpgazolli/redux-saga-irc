@@ -82,7 +82,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       if (!hasHost) return state;
 
-      state.connection[host].quit();
+      state.connections[host].quit();
 
       if (removeAfterDisconnect) {
         delete state.servers[host]
