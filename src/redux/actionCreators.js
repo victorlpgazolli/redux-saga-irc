@@ -5,8 +5,13 @@ export const connect = ({
   host,
   username,
   port = 6667,
+  connectionTimeout = 25000,
 }) => new Promise((resolve, reject) => {
   try {
+    const timeoutConfig = setTimeout(() => {
+      reject()
+    }, connectionTimeout);
+
     const connection = new Client();
 
     connection.connect({
@@ -21,6 +26,7 @@ export const connect = ({
     connection.on('registered', function ({
       tags
     }) {
+      clearTimeout(timeoutConfig);
       resolve({
         type: actionTypes.REGISTERED,
         payload: {
@@ -36,6 +42,7 @@ export const connect = ({
     });
   } catch (error) {
     console.log(error);
+    reject()
   }
 })
 export const disconnect = ({
