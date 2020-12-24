@@ -40,22 +40,25 @@ export const connect = ({
 })
 
 export const join = ({
-  channel,
-  connection = new Client,
+  channel: channelName,
+  connection,
 }) => {
   try {
 
-    const channelConn = connection.channel(channel);
+    const host = connection.options.host;
 
-    channelConn.join();
+    const channel = connection.channel(channelName);
 
-    const users = channelConn.users;
+    channel.join();
+
+    const users = channel.users;
 
     return {
       type: actionTypes.JOIN,
       payload: {
-        channel: channelConn,
-        users: users,
+        channel,
+        users,
+        host
       },
     }
 

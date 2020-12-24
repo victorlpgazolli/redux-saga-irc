@@ -46,7 +46,8 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         channel,
         users,
         host,
-      } = action.payload
+      } = action.payload;
+
       const channels = state.channels[host] || [];
 
       return {
