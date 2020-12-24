@@ -43,10 +43,17 @@ export default function irc(state = INITIAL_STATE, action = {}) {
     },
     [JOIN]: () => {
       const {
-        channel,
-        users,
+        channel: channelName,
         host,
       } = action.payload;
+
+      if (!state.connections[host]) return state;
+
+      const channel = state.connections[host].channel(channelName);
+
+      channel.join();
+
+      const users = channel.users;
 
       const channels = state.channels[host] || [];
 
@@ -68,6 +75,10 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         host,
         removeAfterDisconnect,
       } = action.payload;
+
+      if (!state.connection[host]) return state;
+
+      state.connection[host].quit();
 
       if (removeAfterDisconnect) {
         delete state.servers[host]

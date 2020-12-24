@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { Client } from 'irc-framework';
-
+import assert from 'assert'
 export const connect = ({
   host,
   username,
@@ -39,13 +39,13 @@ export const connect = ({
   }
 })
 export const disconnect = ({
-  connection,
+  host,
   removeAfterDisconnect = false
 }) => {
   try {
-    const host = connection.options.host;
+    assert(typeof removeAfterDisconnect === 'boolean', "removeAfterDisconnect should be a boolean")
+    assert(typeof host === 'string', "host should be a string");
 
-    connection.quit();
 
     return {
       type: actionTypes.DISCONNECT,
@@ -61,25 +61,18 @@ export const disconnect = ({
 }
 
 export const join = ({
-  channel: channelName,
-  connection,
+  channel,
+  host,
 }) => {
   try {
-
-    const host = connection.options.host;
-
-    const channel = connection.channel(channelName);
-
-    channel.join();
-
-    const users = channel.users;
+    assert(typeof channel === 'string', "channel should be a string")
+    assert(typeof host === 'string', "host should be a string")
 
     return {
       type: actionTypes.JOIN,
       payload: {
         channel,
-        users,
-        host
+        host,
       },
     }
 
