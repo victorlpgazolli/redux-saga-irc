@@ -21,10 +21,11 @@ export const middleware = (
     function handler(command, event, client, next) {
         try {
             assert(typeof handlers[command] === 'function', `no middleware configured for: ${JSON.stringify(command)}`)
-            dispatch(handlers[command]({
+            const dispatchEvent = handlers[command]({
                 event,
                 client
-            }))
+            });
+            if (dispatchEvent) dispatch(dispatchEvent)
         } catch (error) {
             if (!options.suppressMiddlewareErrors) console.log(error);
         }
