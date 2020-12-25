@@ -7,4 +7,6 @@ export const KICK = '@@irc-server/KICK';
 export const QUIT = '@@irc-server/QUIT';
 export const NICK = '@@irc-server/NICK';
 export const PRIVMSG = '@@irc-server/PRIVMSG';
+export const MOTD = '@@irc-server/MOTD';
+export const TOPIC = '@@irc-server/TOPIC';
 

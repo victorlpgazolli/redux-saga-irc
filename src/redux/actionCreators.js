@@ -1,12 +1,16 @@
 import * as actionTypes from './actionTypes';
 import { Client } from 'irc-framework';
 import assert from 'assert'
+import { middleware as defaultMiddleware } from '../utils/middlewares';
+
 export const connect = ({
   host,
   username,
   port = 6667,
   connectionTimeout = 25000,
-}) => new Promise((resolve, reject) => {
+  middleware = defaultMiddleware,
+  useMiddleware = true
+}) => dispatch => new Promise((resolve, reject) => {
   try {
     const timeoutConfig = setTimeout(() => {
       reject()
@@ -22,6 +26,11 @@ export const connect = ({
       gecos: username,
       version: username
     });
+
+    if (useMiddleware) {
+      const middlewareWithDispatch = middleware(dispatch)
+      connection.use(middlewareWithDispatch)
+    }
 
     connection.on('registered', function ({
       tags
@@ -86,4 +95,63 @@ export const join = ({
   } catch (error) {
     console.log(error);
   }
+}
+
+
+export const _middlewareSetMotd = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+
+
+  const {
+    host
+  } = client.options
+
+  const {
+    motd,
+    tags
+  } = event;
+
+  return ({
+    type: actionTypes.MOTD,
+    payload: {
+      motd,
+      tags,
+      host
+    }
+  })
+}
+
+export const _middlewareSetTopic = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    topic,
+    channel,
+    nick,
+    time,
+    tags
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.TOPIC,
+    payload: {
+      topic,
+      channel,
+      nick,
+      time,
+      tags,
+      host
+    }
+  })
 }

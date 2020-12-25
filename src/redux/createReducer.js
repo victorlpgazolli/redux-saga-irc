@@ -1,4 +1,4 @@
-import { DISCONNECT, JOIN, REGISTERED } from "./actionTypes";
+import { DISCONNECT, JOIN, MOTD, REGISTERED, TOPIC } from "./actionTypes";
 
 const operationStates = {
   loadLoading: false,
@@ -92,6 +92,69 @@ export default function irc(state = INITIAL_STATE, action = {}) {
       }
 
       return state
+    },
+    [MOTD]: () => {
+      const {
+        motd,
+        host
+      } = action.payload;
+
+      const hasHost = state.servers && state.servers.hasOwnProperty(host);
+
+      if (!hasHost) return state;
+
+      const serverInfo = state.servers[host] || {}
+
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [host]: {
+            ...serverInfo,
+            motd: motd
+          },
+        },
+      }
+    },
+    [TOPIC]: () => {
+      const {
+        topic,
+        channel,
+        nick,
+        time,
+        tags,
+        host
+      } = action.payload;
+
+      const hasHost = state.servers && state.servers.hasOwnProperty(host);
+
+      if (!hasHost) return state;
+
+      const serverInfo = state.servers[host] || {};
+
+      const allTopics = serverInfo.topic || {};
+
+      const channelTopic = allTopics[channel] || {};
+
+      return {
+        ...state,
+        servers: {
+          ...state.servers,
+          [host]: {
+            ...serverInfo,
+            topic: {
+              ...allTopics,
+              [channel]: {
+                ...channelTopic,
+                topic,
+                nick,
+                time,
+                tags
+              }
+            }
+          },
+        },
+      }
     }
   };
 
