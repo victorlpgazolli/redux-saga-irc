@@ -99,6 +99,26 @@ export const join = ({
     console.log(error);
   }
 }
+export const leave = ({
+  channel,
+  host,
+}) => {
+  try {
+    assert(typeof channel === 'string', "channel should be a string")
+    assert(typeof host === 'string', "host should be a string")
+
+    return {
+      type: actionTypes.PART,
+      payload: {
+        channel,
+        host,
+      },
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 
 export const _middlewareSetMotd = ({
