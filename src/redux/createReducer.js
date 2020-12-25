@@ -130,13 +130,13 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const formattedMode = modes.map(mode => mode.mode);
 
-      const userModifiedIndex = state.users.findIndex(user => user.nick === nick && user.channel === target);
+      const userModifiedIndex = state.users[host].findIndex(user => user.nick === nick && user.channel === target);
 
-      const user = state.users.splice(userModifiedIndex, 1);
+      const user = state.users[host].splice(userModifiedIndex, 1);
 
       user.modes = modes;
 
-      state.users.splice(userModifiedIndex, 0, {
+      state.users[host].splice(userModifiedIndex, 0, {
         ...user,
         modes: formattedMode
       });
