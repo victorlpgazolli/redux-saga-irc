@@ -147,7 +147,7 @@ export const _middlewareSetMotd = ({
   } = event;
 
   return ({
-    type: actionTypes.MOTD,
+    type: actionTypes.MIDDLEWARE_MOTD,
     payload: {
       motd,
       tags,
@@ -175,7 +175,7 @@ export const _middlewareSetTopic = ({
   } = client.options
 
   return ({
-    type: actionTypes.TOPIC,
+    type: actionTypes.MIDDLEWARE_TOPIC,
     payload: {
       topic,
       channel,
