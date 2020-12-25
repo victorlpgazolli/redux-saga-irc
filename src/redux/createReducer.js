@@ -226,13 +226,13 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const hasHost = state.errors && state.errors.hasOwnProperty(host) && Array.isArray(state.errors[host])
       
-      if (!hasHost) state.errors[host] = []
+      if (!hasHost) state.errors[host] = {}
 
       const errorObj = {
         channel,
         error,
         reason,
-        nonce: +state.errors[host]?.nonce + 1
+        nonce: +state.errors[host].nonce + 1
       }
 
       return {
