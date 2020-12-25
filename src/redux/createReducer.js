@@ -1,4 +1,15 @@
-import { DISCONNECT, JOIN, MOTD, REGISTERED, TOPIC, PART } from "./actionTypes";
+import {
+  DISCONNECT,
+  JOIN,
+  REGISTERED,
+  PART,
+  MIDDLEWARE_MOTD,
+  MIDDLEWARE_TOPIC,
+  MIDDLEWARE_PART,
+  MIDDLEWARE_JOIN,
+  MIDDLEWARE_USER_LIST,
+  MIDDLEWARE_MODE,
+} from "./actionTypes";
 
 const operationStates = {
   loadLoading: false,
@@ -100,6 +111,168 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         },
       }
     },
+    [MIDDLEWARE_MODE]: () => {
+      const {
+        modes = [],
+        nick,
+        target,
+        host,
+      } = action.payload;
+
+      const hasUsersHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+      const hasChannelsHost = state.channels && state.channels.hasOwnProperty(host) && Array.isArray(state.channels[host])
+
+      if (!hasUsersHost || !hasChannelsHost) return state;
+
+      const formattedMode = modes.map(mode => mode.mode);
+
+      const userModifiedIndex = state.users.findIndex(user => user.nick === nick && user.channel === target);
+
+      const user = state.users.splice(userModifiedIndex, 1);
+
+      user.modes = modes;
+
+      state.users.splice(userModifiedIndex, 0, {
+        ...user,
+        modes: formattedMode
+      });
+
+      const channelIndex = state.channels[host].findIndex(ch => ch.name === target);
+
+      const channel = state.channels[host].splice(channelIndex, 1);
+
+      channel.users = channel.users.map(user => {
+        if (user.nick === nick) {
+          return {
+            ...user,
+            modes: formattedMode
+          };
+        }
+        return user
+      })
+
+      state.channels[host].splice(channelIndex, 0, channel);
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+        },
+        channels: {
+          ...state.channels
+        }
+      }
+    },
+    [MIDDLEWARE_USER_LIST]: () => {
+      const {
+        channel = "",
+        users = [],
+        host,
+      } = action.payload;
+
+      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+
+      if (!hasHost) return state;
+
+      const userWithChannel = users.map(user => ({
+        ...user,
+        channel
+      }));
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [host]: userWithChannel,
+        },
+      }
+    },
+    [MIDDLEWARE_USER_LIST]: () => {
+      const {
+        channel = "",
+        users = [],
+        host,
+      } = action.payload;
+
+      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+
+      if (!hasHost) return state;
+
+      const userWithChannel = users.map(user => ({
+        ...user,
+        channel
+      }));
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [host]: userWithChannel,
+        },
+      }
+    },
+    [MIDDLEWARE_PART]: () => {
+      const {
+        channel,
+        nick,
+        host,
+      } = action.payload;
+
+      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+
+      if (!hasHost) return state;
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [host]: state.users.filter(user => {
+            const isSameChannel = user.channel === channel;
+            const isSameNick = user.nick === nick;
+            return !(isSameNick && isSameChannel)
+          }),
+        },
+      }
+    },
+    [MIDDLEWARE_JOIN]: () => {
+      const {
+        account,
+        channel,
+        gecos,
+        hostname,
+        ident,
+        nick,
+        tags,
+        time,
+        host,
+      } = action.payload;
+
+      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+
+      if (!hasHost) return state;
+
+      const newUser = {
+        account,
+        channel,
+        gecos,
+        hostname,
+        ident,
+        nick,
+        tags,
+        time,
+      }
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [host]: [
+            ...state.users[host],
+            newUser
+          ],
+        },
+      }
+    },
     [DISCONNECT]: () => {
 
       const {
@@ -122,7 +295,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       return state
     },
-    [MOTD]: () => {
+    [MIDDLEWARE_MOTD]: () => {
       const {
         motd,
         host
@@ -145,7 +318,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         },
       }
     },
-    [TOPIC]: () => {
+    [MIDDLEWARE_TOPIC]: () => {
       const {
         topic,
         channel,

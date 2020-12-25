@@ -8,8 +8,8 @@ export const connect = ({
   username,
   port = 6667,
   connectionTimeout = 25000,
-  middleware = defaultMiddleware,
-  useMiddleware = true
+  useMiddleware = true,
+  suppressMiddlewareErrors = true,
 }) => dispatch => new Promise((resolve, reject) => {
   try {
     const timeoutConfig = setTimeout(() => {
@@ -28,9 +28,17 @@ export const connect = ({
     });
 
     if (useMiddleware) {
-      const middlewareWithDispatch = middleware(dispatch, {
+      const middlewareHandlers = {
+        join: _middlewareJoin,
+        part: _middlewarePart,
         motd: _middlewareSetMotd,
         topic: _middlewareSetTopic,
+        userlist: _middlewareUserList,
+        mode: _middlewareMode,
+      }
+
+      const middlewareWithDispatch = defaultMiddleware(dispatch, middlewareHandlers, {
+        suppressMiddlewareErrors,
       })
       connection.use(middlewareWithDispatch())
     }
@@ -174,6 +182,118 @@ export const _middlewareSetTopic = ({
       nick,
       time,
       tags,
+      host
+    }
+  })
+}
+
+export const _middlewareUserList = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    channel,
+    users,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_USER_LIST,
+    payload: {
+      channel,
+      users,
+      host,
+    }
+  })
+}
+export const _middlewareMode = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    modes,
+    nick,
+    target,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_MODE,
+    payload: {
+      modes,
+      nick,
+      target,
+      host,
+    }
+  })
+}
+export const _middlewarePart = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    channel,
+    nick,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_PART,
+    payload: {
+      channel,
+      nick,
+      host
+    }
+  })
+}
+
+export const _middlewareJoin = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    account,
+    channel,
+    gecos,
+    hostname,
+    ident,
+    nick,
+    tags,
+    time,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_PART,
+    payload: {
+      account,
+      channel,
+      gecos,
+      hostname,
+      ident,
+      nick,
+      tags,
+      time,
       host
     }
   })

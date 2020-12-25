@@ -7,6 +7,10 @@ export const KICK = '@@irc-server/KICK';
 export const QUIT = '@@irc-server/QUIT';
 export const NICK = '@@irc-server/NICK';
 export const PRIVMSG = '@@irc-server/PRIVMSG';
-export const MOTD = '@@irc-server/MOTD';
-export const TOPIC = '@@irc-server/TOPIC';
+export const MIDDLEWARE_JOIN = '@@irc-server/MIDDLEWARE_JOIN';
+export const MIDDLEWARE_PART = '@@irc-server/MIDDLEWARE_PART';
+export const MIDDLEWARE_MOTD = '@@irc-server/MIDDLEWARE_MOTD';
+export const MIDDLEWARE_TOPIC = '@@irc-server/MIDDLEWARE_TOPIC';
+export const MIDDLEWARE_USER_LIST = '@@irc-server/MIDDLEWARE_USER_LIST';
+export const MIDDLEWARE_MODE = '@@irc-server/MIDDLEWARE_MODE';
 
