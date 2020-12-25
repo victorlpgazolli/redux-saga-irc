@@ -232,16 +232,17 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         channel,
         error,
         reason,
+        nonce: +state.errors[host]?.nonce + 1
       }
 
       return {
         ...state,
         errors: {
           ...state.errors,
-          [host]: [
+          [host]: {
             ...state.errors[host],
             errorObj,
-          ]
+          }
         }
       }
     },
