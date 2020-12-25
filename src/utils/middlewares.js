@@ -4,12 +4,12 @@ import {
 } from '../redux/actionCreators';
 import assert from 'assert'
 
-const commands = {
-    motd: _middlewareSetMotd,
-    topic: _middlewareSetTopic,
-}
 
-export const middleware = (dispatch = () => { }) => () => {
+export const middleware = (
+    dispatch = () => { },
+    handlers = {}
+) => () => {
+
     return function (client, raw_events, parsed_events) {
         parsed_events.use(handler);
     }
@@ -17,8 +17,8 @@ export const middleware = (dispatch = () => { }) => () => {
 
     function handler(command, event, client, next) {
         try {
-            assert(typeof commands[command] === 'function', `no middleware configured for: ${JSON.stringify(command)}`)
-            dispatch(commands[command]({
+            assert(typeof handlers[command] === 'function', `no middleware configured for: ${JSON.stringify(command)}`)
+            dispatch(handlers[command]({
                 event,
                 client
             }))
@@ -30,7 +30,3 @@ export const middleware = (dispatch = () => { }) => () => {
         }
     }
 }
-
-
-var irc_bot = new IRC.Client();
-irc_bot.use(ExampleMiddleware());

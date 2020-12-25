@@ -28,7 +28,10 @@ export const connect = ({
     });
 
     if (useMiddleware) {
-      const middlewareWithDispatch = middleware(dispatch)
+      const middlewareWithDispatch = middleware(dispatch, {
+        motd: _middlewareSetMotd,
+        topic: _middlewareSetTopic,
+      })
       connection.use(middlewareWithDispatch)
     }
 
