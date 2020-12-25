@@ -11,6 +11,7 @@ import {
   MIDDLEWARE_MODE,
   MIDDLEWARE_KICK,
   MIDDLEWARE_IRC_ERROR,
+  REMOVE_ERROR,
 } from "./actionTypes";
 
 const operationStates = {
@@ -243,6 +244,20 @@ export default function irc(state = INITIAL_STATE, action = {}) {
             ...state.errors[host],
             ...errorObj,
           }
+        }
+      }
+    },
+    [REMOVE_ERROR]: () => {
+      const {
+        host,
+      } = action.payload;
+
+      if (state.errors && state.errors[host]) delete state.errors[host]
+
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
         }
       }
     },

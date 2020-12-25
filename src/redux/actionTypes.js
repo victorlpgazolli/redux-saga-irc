@@ -7,6 +7,7 @@ export const KICK = '@@irc-server/KICK';
 export const QUIT = '@@irc-server/QUIT';
 export const NICK = '@@irc-server/NICK';
 export const PRIVMSG = '@@irc-server/PRIVMSG';
+export const REMOVE_ERROR = '@@irc-server/REMOVE_ERROR';
 export const MIDDLEWARE_JOIN = '@@irc-server/MIDDLEWARE_JOIN';
 export const MIDDLEWARE_PART = '@@irc-server/MIDDLEWARE_PART';
 export const MIDDLEWARE_MOTD = '@@irc-server/MIDDLEWARE_MOTD';

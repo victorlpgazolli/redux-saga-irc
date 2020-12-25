@@ -89,6 +89,24 @@ export const disconnect = ({
   }
 }
 
+export const removeError = ({
+  host,
+}) => {
+  try {
+    assert(typeof host === 'string', "host should be a string")
+
+    return {
+      type: actionTypes.REMOVE_ERROR,
+      payload: {
+        host,
+      },
+    }
+
+  } catch (error) {
+    console.log(error);
+    return false
+  }
+}
 export const join = ({
   channel,
   host,
@@ -107,6 +125,7 @@ export const join = ({
 
   } catch (error) {
     console.log(error);
+    return false
   }
 }
 export const leave = ({
@@ -127,6 +146,7 @@ export const leave = ({
 
   } catch (error) {
     console.log(error);
+    return false
   }
 }
 
@@ -329,6 +349,7 @@ export const _middlewareKick = ({
     })
   } catch (error) {
     console.log(error);
+    return false
   }
 }
 
