@@ -262,12 +262,18 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         time,
       }
 
+      const removeUserIfAlreadyExists = user => {
+        const isSameChannel = user.channel === channel;
+        const isSameNick = user.nick === nick;
+        return !(isSameNick && isSameChannel)
+      }
+
       return {
         ...state,
         users: {
           ...state.users,
           [host]: [
-            ...state.users[host],
+            ...state.users[host].filter(removeUserIfAlreadyExists),
             newUser
           ],
         },

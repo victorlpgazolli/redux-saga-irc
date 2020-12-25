@@ -284,7 +284,7 @@ export const _middlewareJoin = ({
   } = client.options
 
   return ({
-    type: actionTypes.MIDDLEWARE_PART,
+    type: actionTypes.MIDDLEWARE_JOIN,
     payload: {
       account,
       channel,
