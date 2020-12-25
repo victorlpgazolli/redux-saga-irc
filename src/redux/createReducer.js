@@ -241,7 +241,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
           ...state.errors,
           [host]: {
             ...state.errors[host],
-            errorObj,
+            ...errorObj,
           }
         }
       }
