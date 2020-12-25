@@ -32,7 +32,7 @@ export const connect = ({
         motd: _middlewareSetMotd,
         topic: _middlewareSetTopic,
       })
-      connection.use(middlewareWithDispatch)
+      connection.use(middlewareWithDispatch())
     }
 
     connection.on('registered', function ({
