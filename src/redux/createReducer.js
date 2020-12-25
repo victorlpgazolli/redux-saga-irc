@@ -222,8 +222,10 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         host,
       } = action.payload;
 
-      const hasHost = state.errors && state.errors.hasOwnProperty(host) && Array.isArray(state.errors[host])
+      if (!state.errors) state.errors = {};
 
+      const hasHost = state.errors && state.errors.hasOwnProperty(host) && Array.isArray(state.errors[host])
+      
       if (!hasHost) state.errors[host] = []
 
       const errorObj = {
@@ -422,6 +424,6 @@ export default function irc(state = INITIAL_STATE, action = {}) {
     }
   };
 
-  if (actionTypes[action.type]) return actionTypes[action.type]();
+  if (action.type && actionTypes[action.type]) return actionTypes[action.type]();
   return state;
 }
