@@ -24,11 +24,14 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         tags,
       } = action.payload.server || {};
 
+      const hostInfo = state.servers[host] || {}
+
       return {
         ...state,
         servers: {
           ...state.servers,
           [host]: {
+            ...hostInfo,
             host,
             username,
             port,
@@ -101,7 +104,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const hasHost = state.servers && state.servers.hasOwnProperty(host);
 
-      if (!hasHost) return state;
+      if (!hasHost) state.servers[host] = {}
 
       const serverInfo = state.servers[host] || {}
 
@@ -128,7 +131,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const hasHost = state.servers && state.servers.hasOwnProperty(host);
 
-      if (!hasHost) return state;
+      if (!hasHost) state.servers[host] = {}
 
       const serverInfo = state.servers[host] || {};
 
