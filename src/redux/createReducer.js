@@ -226,7 +226,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
       if (!state.errors) state.errors = {};
 
       const hasHost = state.errors && state.errors.hasOwnProperty(host) && Array.isArray(state.errors[host])
-      
+
       if (!hasHost) state.errors[host] = {}
 
       const errorObj = {
@@ -269,9 +269,16 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         host,
       } = action.payload;
 
-      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+      const hasUserHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+      const hasChannels = state.channels && state.channels.hasOwnProperty(host) && Array.isArray(state.channels[host])
 
-      if (!hasHost) return state;
+      if (!hasUserHost || !hasChannels) return state;
+
+      const channels = state.channels[host];
+
+      const channelIndex = channels.findIndex(({ name }) => name === channel);
+
+      channels.splice(channelIndex, 1)
 
       return {
         ...state,
@@ -282,6 +289,10 @@ export default function irc(state = INITIAL_STATE, action = {}) {
             const isSameNick = user.nick === kicked;
             return !(isSameNick && isSameChannel)
           }),
+        },
+        channels: {
+          ...state.channels,
+          [host]: channels,
         },
       }
     },
