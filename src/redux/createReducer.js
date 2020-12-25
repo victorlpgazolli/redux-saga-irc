@@ -88,7 +88,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
 
       const channelIndex = channels.findIndex(({ name }) => name === channelName);
 
-      const channel = channels.splice(channelIndex, 1)
+      const [channel] = channels.splice(channelIndex, 1)
 
       channel.part();
 
