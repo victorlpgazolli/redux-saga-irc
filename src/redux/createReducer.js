@@ -226,7 +226,7 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         ...state,
         users: {
           ...state.users,
-          [host]: state.users.filter(user => {
+          [host]: state.users[host].filter(user => {
             const isSameChannel = user.channel === channel;
             const isSameNick = user.nick === nick;
             return !(isSameNick && isSameChannel)
