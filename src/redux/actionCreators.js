@@ -307,25 +307,29 @@ export const _middlewareKick = ({
     options: {}
   }
 }) => {
-  const {
-    channel,
-    nick,
-    kicked,
-  } = event;
-
-  const {
-    host
-  } = client.options
-
-  return ({
-    type: actionTypes.MIDDLEWARE_KICK,
-    payload: {
+  try {
+    const {
       channel,
       nick,
       kicked,
+    } = event;
+  
+    const {
       host
-    }
-  })
+    } = client.options
+  
+    return ({
+      type: actionTypes.MIDDLEWARE_KICK,
+      payload: {
+        channel,
+        nick,
+        kicked,
+        host
+      }
+    })
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export const _middlewareIrcError = ({
