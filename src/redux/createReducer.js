@@ -9,6 +9,8 @@ import {
   MIDDLEWARE_JOIN,
   MIDDLEWARE_USER_LIST,
   MIDDLEWARE_MODE,
+  MIDDLEWARE_KICK,
+  MIDDLEWARE_IRC_ERROR,
 } from "./actionTypes";
 
 const operationStates = {
@@ -22,6 +24,7 @@ const INITIAL_STATE = {
   users: {},
   channels: {},
   connections: {},
+  errors: {},
   ...operationStates
 };
 
@@ -208,6 +211,59 @@ export default function irc(state = INITIAL_STATE, action = {}) {
         users: {
           ...state.users,
           [host]: userWithChannel,
+        },
+      }
+    },
+    [MIDDLEWARE_IRC_ERROR]: () => {
+      const {
+        channel,
+        error,
+        reason,
+        host,
+      } = action.payload;
+
+      const hasHost = state.errors && state.errors.hasOwnProperty(host) && Array.isArray(state.errors[host])
+
+      if (!hasHost) state.errors[host] = []
+
+      const errorObj = {
+        channel,
+        error,
+        reason,
+      }
+
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [host]: [
+            ...state.errors[host],
+            errorObj,
+          ]
+        }
+      }
+    },
+    [MIDDLEWARE_KICK]: () => {
+      const {
+        channel,
+        nick,
+        kicked,
+        host,
+      } = action.payload;
+
+      const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
+
+      if (!hasHost) return state;
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          [host]: state.users[host].filter(user => {
+            const isSameChannel = user.channel === channel;
+            const isSameNick = user.nick === kicked;
+            return !(isSameNick && isSameChannel)
+          }),
         },
       }
     },

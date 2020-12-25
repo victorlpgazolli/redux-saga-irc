@@ -13,4 +13,6 @@ export const MIDDLEWARE_MOTD = '@@irc-server/MIDDLEWARE_MOTD';
 export const MIDDLEWARE_TOPIC = '@@irc-server/MIDDLEWARE_TOPIC';
 export const MIDDLEWARE_USER_LIST = '@@irc-server/MIDDLEWARE_USER_LIST';
 export const MIDDLEWARE_MODE = '@@irc-server/MIDDLEWARE_MODE';
+export const MIDDLEWARE_KICK = '@@irc-server/MIDDLEWARE_KICK';
+export const MIDDLEWARE_IRC_ERROR = '@@irc-server/MIDDLEWARE_IRC_ERROR';
 

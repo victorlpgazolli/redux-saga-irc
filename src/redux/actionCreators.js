@@ -29,12 +29,14 @@ export const connect = ({
 
     if (useMiddleware) {
       const middlewareHandlers = {
-        join: _middlewareJoin,
-        part: _middlewarePart,
-        motd: _middlewareSetMotd,
-        topic: _middlewareSetTopic,
-        userlist: _middlewareUserList,
-        mode: _middlewareMode,
+        "join": _middlewareJoin,
+        "part": _middlewarePart,
+        "motd": _middlewareSetMotd,
+        "topic": _middlewareSetTopic,
+        "userlist": _middlewareUserList,
+        "mode": _middlewareMode,
+        "kick": _middlewareKick,
+        "irc error": _middlewareIrcError,
       }
 
       const middlewareWithDispatch = defaultMiddleware(dispatch, middlewareHandlers, {
@@ -294,6 +296,60 @@ export const _middlewareJoin = ({
       nick,
       tags,
       time,
+      host
+    }
+  })
+}
+
+export const _middlewareKick = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    channel,
+    nick,
+    kicked,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_KICK,
+    payload: {
+      channel,
+      nick,
+      kicked,
+      host
+    }
+  })
+}
+
+export const _middlewareIrcError = ({
+  event = {},
+  client = {
+    options: {}
+  }
+}) => {
+  const {
+    channel,
+    error,
+    reason,
+  } = event;
+
+  const {
+    host
+  } = client.options
+
+  return ({
+    type: actionTypes.MIDDLEWARE_IRC_ERROR,
+    payload: {
+      channel,
+      error,
+      reason,
       host
     }
   })
