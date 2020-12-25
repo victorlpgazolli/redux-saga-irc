@@ -8,7 +8,9 @@ import assert from 'assert'
 export const middleware = (
     dispatch = () => { },
     handlers = {},
-    options = {},
+    options = {
+        suppressMiddlewareErrors: true
+    },
 ) => () => {
 
     return function (client, raw_events, parsed_events) {
@@ -24,7 +26,7 @@ export const middleware = (
                 client
             }))
         } catch (error) {
-            if (!options?.suppressMiddlewareErrors) console.log(error);
+            if (!options.suppressMiddlewareErrors) console.log(error);
         }
         finally {
             next();
