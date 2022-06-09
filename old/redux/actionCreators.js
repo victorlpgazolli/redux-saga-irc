@@ -75,7 +75,6 @@ export const disconnect = ({
     assert(typeof removeAfterDisconnect === 'boolean', "removeAfterDisconnect should be a boolean")
     assert(typeof host === 'string', "host should be a string");
 
-
     return {
       type: actionTypes.DISCONNECT,
       payload: {
@@ -150,14 +149,12 @@ export const leave = ({
   }
 }
 
-
 export const _middlewareSetMotd = ({
   event = {},
   client = {
     options: {}
   }
 }) => {
-
 
   const {
     host

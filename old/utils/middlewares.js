@@ -4,7 +4,6 @@ import {
 } from '../redux/actionCreators';
 import assert from 'assert'
 
-
 export const middleware = (
     dispatch = () => { },
     handlers = {},
@@ -16,7 +15,6 @@ export const middleware = (
     return function (client, raw_events, parsed_events) {
         parsed_events.use(handler);
     }
-
 
     function handler(command, event, client, next) {
         try {

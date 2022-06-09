@@ -7,10 +7,12 @@
   "main": "dist/react-irc.js",
   "module": "dist/react-irc.esm.js",
   "scripts": {
-    "build": "rimraf dist && rollup -c",
-    "lint": "eslint --ext .js,.ts,.tsx {src,test}/**/*.{ts,tsx}",
-    "precommit": "npm run lint",
-    "prepublish": "npm run build"
+    "dev": "nodemon  -r tsconfig-paths/register ./src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register -r ts-node ./src/app.ts",
+    "build": "tsc -p tsconfig.build.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "prebuild": "rm -r ./dist",
+    "pretest": "npm run build",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -31,16 +33,29 @@
   },
   "homepage": "https://github.com/victorlpgazolli/react-irc#readme",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
     "@rollup/plugin-json": "^4.1.0",
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
     "rimraf": "^3.0.2",
     "rollup": "^2.35.1",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^28.0.4",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0",
+    "tscpaths": "0.0.9",
+    "tslint": "^6.1.3",
+    "typescript": "^4.7.3"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "irc-framework": "^4.9.0",
     "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-saga": "^1.1.3",
+    "rxjs": "^7.5.5",
+    "yup": "^0.32.11"
   }
 }
