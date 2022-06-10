@@ -5,6 +5,8 @@ import partReducer from './part'
 import kickReducer from './kick'
 import privmsgReducer from './privmsg'
 import quitReducer from './quit'
+import userListReducer from './userList'
+import userPartReducer from './userPart'
 
 
 const reducers = {
@@ -14,6 +16,8 @@ const reducers = {
     partReducer,
     kickReducer,
     privmsgReducer,
-    quitReducer
+    quitReducer,
+    userListReducer,
+    userPartReducer,
 }
 export default reducers

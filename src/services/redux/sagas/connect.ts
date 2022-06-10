@@ -44,7 +44,7 @@ export default function* connectToIrc(action: PayloadAction<Connection>) {
         });
 
         yield put({
-            type: ircActions.join.type,
+            type: ircActions.joinRequest.type,
             payload: {
                 host: host,
                 channel: "abc"

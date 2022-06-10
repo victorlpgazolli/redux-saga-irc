@@ -34,12 +34,8 @@ export default function* joinChannel(action: PayloadAction<JoinIntent>) {
             channel
         });
 
-        // yield put({ type: ircActions.joinSuccess.type, payload: joinPayload });
-        const state = yield select();
-        console.log(state);
     } catch (error) {
         console.log(error);
-
     }
 
 }

@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { ircActions } from "@app";
 import reducers from "./reducers";
+import { user_part } from "./actions";
 
 const {
     connected,
     disconnect,
-    join,
+    joinRequest,
     part,
     kick,
     quit,
@@ -45,11 +46,12 @@ export default createReducer(INITIAL_STATE, {
     [nick.type]: state => state,
     [privmsg.type]: state => state,
     [remove_error.type]: state => state,
-    [join.type]: state => state,
+    [joinRequest.type]: state => state,
     [part.type]: state => state,
     [motd.type]: state => state,
     [topic.type]: state => state,
-    [user_list.type]: state => state,
+    [user_list.type]: reducers.userListReducer,
+    [user_part.type]: reducers.userPartReducer,
     [mode.type]: state => state,
     [kick.type]: state => state,
     [irc_error.type]: state => state,

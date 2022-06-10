@@ -8,7 +8,7 @@ export function* watchConnectionIntent() {
     yield takeLatest(ircActions.connect, connectToIrc)
 }
 export function* watchJoinIntent() {
-    yield takeEvery(ircActions.join, joinChannel)
+    yield takeEvery(ircActions.joinRequest, joinChannel)
 }
 export function* watchConnected() {
     yield takeEvery(ircActions.connected, setupListeners)

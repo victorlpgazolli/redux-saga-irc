@@ -1,4 +1,4 @@
-import { all, takeEvery } from 'redux-saga/effects'
+import { all, select, takeEvery } from 'redux-saga/effects'
 import {
     watchJoinIntent,
     watchConnectionIntent,
@@ -11,6 +11,12 @@ export default function* rootSaga() {
         watchConnected(),
         watchConnectionIntent(),
         watchJoinIntent(),
-        takeEvery("*", console.log)
+        takeEvery("*", function* (action) {
+            console.log(
+                action,
+                yield select(state => state.irc),
+                yield select(state => state.irc.users),
+            )
+        })
     ])
 }

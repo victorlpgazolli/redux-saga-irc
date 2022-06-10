@@ -25,7 +25,6 @@ export default function* connectToIrc(action) {
         nick,
         username,
     }
-    console.log(connectionPayload);
 
     yield put({ type: actions.connecting, payload: connectionPayload });
 
