@@ -19,6 +19,7 @@ const {
     mode,
     irc_error,
     joinSuccess,
+    user_kick,
 } = ircActions;
 
 const operationStates = {
@@ -52,7 +53,7 @@ export default createReducer(INITIAL_STATE, {
     [topic.type]: state => state,
     [user_list.type]: reducers.userListReducer,
     [user_part.type]: reducers.userPartReducer,
+    [user_kick.type]: reducers.kickReducer,
     [mode.type]: state => state,
-    [kick.type]: state => state,
     [irc_error.type]: state => state,
 })

@@ -1,6 +1,7 @@
 import { ircActions } from "@app"
 import { takeEvery, takeLatest } from "redux-saga/effects"
 import connectToIrc from "./connect"
+import fireWhoIsCommand from "./fireWhoIsCommand"
 import joinChannel from "./join"
 import setupListeners from "./setupListeners"
 
@@ -10,6 +11,13 @@ export function* watchConnectionIntent() {
 export function* watchJoinIntent() {
     yield takeEvery(ircActions.joinRequest, joinChannel)
 }
+export function* watchConnecting() {
+    yield takeEvery(ircActions.connecting, setupListeners)
+}
 export function* watchConnected() {
-    yield takeEvery(ircActions.connected, setupListeners)
+
+}
+export function* watchJoinedChannel() {
+    yield takeEvery(ircActions.joinSuccess, fireWhoIsCommand)
+
 }

@@ -18,6 +18,7 @@ export const motd = createAction('@@irc-server/MOTD')
 export const topic = createAction('@@irc-server/TOPIC')
 export const user_list = createAction('@@irc-server/USER_LIST')
 export const user_part = createAction('@@irc-server/USER_PART')
+export const user_kick = createAction('@@irc-server/USER_KICK')
 export const mode = createAction('@@irc-server/MODE')
 export const irc_error = createAction('@@irc-server/IRC_ERROR')
 

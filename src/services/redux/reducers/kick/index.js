@@ -1,30 +1,29 @@
 export default (state, action) => {
     const {
-        channel: channelName,
+        channel,
+        kicked,
         host,
     } = action.payload;
 
-    const hasHost = state.connections && state.connections.hasOwnProperty(host);
+    const hasHost = state.users && state.users.hasOwnProperty(host) && Array.isArray(state.users[host])
 
     if (!hasHost) return state;
 
-    const channel = state.connections[host].channel(channelName);
+    const usersFromHost = state.users[host] || [];
 
-    channel.join();
-
-    const users = channel.users;
-
-    const channels = state.channels[host] || [];
+    const usersWithoutKickedUser = usersFromHost.filter(user => {
+        const isSameChannel = user.channel === channel;
+        const isSameNick = user.nick === kicked;
+        const hasToRemoveUser = !!isSameNick && !!isSameChannel;
+        const userReimainsInList = !hasToRemoveUser
+        return userReimainsInList;
+    });
 
     return {
         ...state,
-        channels: {
-            ...state.channels,
-            [host]: [...channels, channel],
-        },
         users: {
             ...state.users,
-            [host]: users
-        }
+            [host]: usersWithoutKickedUser,
+        },
     }
 }
