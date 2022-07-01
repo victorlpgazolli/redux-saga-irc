@@ -1,4 +1,7 @@
-export default (state, action) => {
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ActionsTypes, RootState } from "@types";
+
+export default (state: RootState, action: PayloadAction<ActionsTypes.JoinSuccessPayload>) => {
     const {
         channel: channelName,
         host,

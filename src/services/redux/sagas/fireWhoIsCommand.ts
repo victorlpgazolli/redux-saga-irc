@@ -1,14 +1,9 @@
 
-import { fromEvent, } from "rxjs";
-import { call, fork, put, select, take } from "redux-saga/effects";
-
-import watchForUserListEvent from "./userListEvent";
-import watchForJoinEvent from "./joinEvent";
-import watchForPartEvent from "./partEvent";
-import { eventChannel } from "redux-saga";
+import { call, fork, } from "redux-saga/effects";
 import { ircClient } from "@services/irc";
-import { ircActions } from "@app";
 import { whoIsInChannel } from "@services/irc/whoIs";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ActionsTypes } from "@types";
 
 
 function* whoIsCommandSender({ channel }) {
@@ -16,7 +11,7 @@ function* whoIsCommandSender({ channel }) {
 }
 
 
-export default function* fireWhoIsCommand({ payload }) {
+export default function* fireWhoIsCommand({ payload }: PayloadAction<ActionsTypes.JoinSuccessPayload>) {
     const {
         channel
     } = payload;

@@ -1,23 +1,14 @@
-import { call, put, select } from "redux-saga/effects";
-import * as yup from 'yup';
+import { call, put, } from "redux-saga/effects";
 import { ircActions } from "@app";
 import { connect } from "@services/irc";
 import { PayloadAction } from "@reduxjs/toolkit";
-const connectionSchema = yup.object().shape({
-    host: yup.string().required("payload.host is required"),
-    port: yup.number().required("payload.port must be a number").positive().integer(),
-    nick: yup.string(),
-    username: yup.string().required("payload.username is required"),
-});
-interface Connection {
-    host: string
-    port: number
-    nick: string
-    username: string
-}
+import { connectionValidator } from "@services/validators";
+import { Connect } from "@types";
 
-export default function* connectToIrc(action: PayloadAction<Connection>) {
-    connectionSchema.validateSync(action.payload);
+
+
+export default function* connectToIrc(action: PayloadAction<Connect.Connection>) {
+    connectionValidator(action.payload);
 
     const {
         host,
@@ -26,7 +17,7 @@ export default function* connectToIrc(action: PayloadAction<Connection>) {
         username,
     } = action.payload
 
-    const connectionPayload = {
+    const connectionPayload: Connect.Connection = {
         host,
         port,
         nick,
@@ -43,6 +34,7 @@ export default function* connectToIrc(action: PayloadAction<Connection>) {
             payload: connection
         });
 
+        //! ONLY for debug:
         yield put({
             type: ircActions.joinRequest.type,
             payload: {

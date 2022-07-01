@@ -53,7 +53,8 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "irc-framework": "^4.9.0",
-    "react-redux": "^7.2.2",
+    "react": "^18.2.0",
+    "react-redux": "^7.2.8",
     "redux-saga": "^1.1.3",
     "rxjs": "^7.5.5",
     "yup": "^0.32.11"

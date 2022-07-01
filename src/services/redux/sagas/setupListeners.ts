@@ -1,22 +1,20 @@
 
-import { fromEvent, } from "rxjs";
-import { call, fork, put, select, take } from "redux-saga/effects";
+import { fork, } from "redux-saga/effects";
 
 import watchForUserListEvent from "./userListEvent";
 import watchForJoinEvent from "./joinEvent";
 import watchForPartEvent from "./partEvent";
-import { eventChannel } from "redux-saga";
-import { ircClient } from "@services/irc";
-import { ircActions } from "@app";
 import watchForUserInfo from "./userInfoEvent";
 import watchForKickEvent from "./kickEvent";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { Connection } from "@types";
 
 
 
 
 
 
-export default function* setupListeners({ payload }) {
+export default function* setupListeners({ payload }: PayloadAction<Connection>) {
     const {
         host
     } = payload

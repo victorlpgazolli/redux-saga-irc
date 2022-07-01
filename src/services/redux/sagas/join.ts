@@ -1,19 +1,13 @@
 import { call, put, select } from "redux-saga/effects";
-import * as yup from 'yup';
 import { ircActions } from "@app";
 import { join } from "@services/irc";
 import { PayloadAction } from "@reduxjs/toolkit";
-const joinSchema = yup.object().shape({
-    host: yup.string().required("payload.host is required"),
-    channel: yup.string().required("payload.channel is required"),
-});
-interface JoinIntent {
-    host: string
-    channel: string
-}
+import { joinValidator } from "@services/validators";
+import { Join } from "@types";
 
-export default function* joinChannel(action: PayloadAction<JoinIntent>) {
-    joinSchema.validateSync(action.payload);
+
+export default function* joinChannel(action: PayloadAction<Join.JoinIntent>) {
+    joinValidator(action.payload)
 
     const {
         host,

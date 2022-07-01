@@ -1,17 +1,8 @@
 import { ircActions } from "@app"
 import { ircClient } from "@services/irc"
+import { ActionsTypes, EventsTypes } from "@types"
 import { eventChannel } from "redux-saga"
 import { call, put, take } from "redux-saga/effects"
-
-interface JoinEvent {
-    account: boolean,
-    nick: string,
-    ident: string,
-    hostname: string,
-    gecos: string,
-    channel: string,
-    time: number,
-}
 
 const joinChannel = (connection) =>
     eventChannel((emitter) => {
@@ -26,9 +17,9 @@ export default function* watchForJoinEvent({ host }) {
     const joinSubscription = yield call(joinChannel, ircClient)
 
     while (true) {
-        const joinedChannel: JoinEvent = yield take(joinSubscription);
+        const joinedChannel: EventsTypes.JoinEvent = yield take(joinSubscription);
 
-        const joinSuccessPayload = {
+        const joinSuccessPayload: ActionsTypes.JoinSuccessPayload = {
             host,
             channel: joinedChannel.channel,
             nick: joinedChannel.nick,

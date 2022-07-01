@@ -1,9 +1,11 @@
-export default (state, action) => {
+import { PayloadAction } from "@reduxjs/toolkit";
+import { RootState, ActionsTypes } from "@types";
+
+export default (state: RootState, action: PayloadAction<ActionsTypes.ConnectionSuccessPayload>) => {
     const {
         host,
         username,
         port,
-        tags,
     } = action.payload.server || {};
 
     const hostInfo = state.servers[host] || {}
@@ -17,7 +19,6 @@ export default (state, action) => {
                 host,
                 username,
                 port,
-                tags,
             },
         },
         connections: {

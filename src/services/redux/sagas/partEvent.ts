@@ -1,17 +1,9 @@
 import { ircActions } from "@app"
 import { ircClient } from "@services/irc"
+import { ActionsTypes, EventsTypes } from "@types"
 import { eventChannel } from "redux-saga"
 import { call, put, take } from "redux-saga/effects"
 
-interface UserPartEvent {
-    nick: string,
-    ident: string,
-    hostname: string,
-    channel: string,
-    message: string,
-    time: number,
-    tags: any
-}
 
 
 const partChannel = (connection) =>
@@ -28,9 +20,9 @@ export default function* watchForPartEvent({ host }) {
     const partEvent = yield call(partChannel, ircClient)
 
     while (true) {
-        const part: UserPartEvent = yield take(partEvent);
+        const part: EventsTypes.UserPartEvent = yield take(partEvent);
 
-        const userPartPayload = {
+        const userPartPayload: ActionsTypes.UserPartSuccessPayload = {
             channel: part.channel,
             nick: part.nick,
             host,

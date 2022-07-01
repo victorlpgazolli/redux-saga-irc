@@ -28,7 +28,7 @@ const operationStates = {
     loadFail: false,
 }
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
     servers: {},
     users: {},
     channels: {},
@@ -36,8 +36,7 @@ const INITIAL_STATE = {
     errors: {},
     ...operationStates
 };
-
-export default createReducer(INITIAL_STATE, {
+const rootReducer = createReducer(INITIAL_STATE, {
     [connected.type]: reducers.connectedReducer,
     [disconnect.type]: state => state,
     [joinSuccess.type]: reducers.joinReducer,
@@ -57,3 +56,6 @@ export default createReducer(INITIAL_STATE, {
     [mode.type]: state => state,
     [irc_error.type]: state => state,
 })
+
+
+export default rootReducer

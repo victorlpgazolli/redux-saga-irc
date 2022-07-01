@@ -1,19 +1,10 @@
 import { ircActions } from "@app"
 import { ircClient } from "@services/irc"
+import { UserListEvent } from "@types"
 import { eventChannel } from "redux-saga"
 import { call, put, take } from "redux-saga/effects"
 
-interface User {
-    nick: string,
-    ident: string,
-    hostname: string,
-    modes: string[],
-    tags: any
-}
-interface UserListEvent {
-    channel: string,
-    users: User
-}
+
 
 const userListChannel = (connection) =>
     eventChannel((emitter) => {

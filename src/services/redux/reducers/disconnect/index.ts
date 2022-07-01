@@ -1,4 +1,7 @@
-export default (state, action) => {
+import { PayloadAction } from "@reduxjs/toolkit";
+import { RootState, ActionsTypes } from "@types";
+
+export default (state: RootState, action: PayloadAction<ActionsTypes.DisconnectPayload>) => {
     const {
         host,
         removeAfterDisconnect,
