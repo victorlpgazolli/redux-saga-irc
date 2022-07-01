@@ -1,0 +1,13 @@
+export type Host = string
+export type Port = string
+export type ChannelName = string
+export type Nick = string
+export type Username = string
+export type Hostname = string
+export type Ident = string
+export type Target = string
+export type Time = number
+export type Motd = string
+export type Tags = any[]
+export type Message = string
+export type Modes = string[]
