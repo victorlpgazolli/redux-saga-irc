@@ -16,7 +16,7 @@ const partChannel = (connection) =>
     })
 
 
-export default function* watchForPartEvent({ host }) {
+export default function* watchForPartEvent({ host }: EventsTypes.ListenerEventPayload) {
     const partEvent = yield call(partChannel, ircClient)
 
     while (true) {

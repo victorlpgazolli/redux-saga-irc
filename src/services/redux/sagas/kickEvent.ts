@@ -16,7 +16,7 @@ const kickEvent = (connection) =>
 
 
 
-export default function* watchForKickEvent({ host }) {
+export default function* watchForKickEvent({ host }: EventsTypes.ListenerEventPayload) {
     const kickChannel = yield call(kickEvent, ircClient)
 
     while (true) {

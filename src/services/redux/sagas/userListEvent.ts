@@ -15,7 +15,7 @@ const userListChannel = (connection) =>
         }
     })
 
-export default function* watchForUserListEvent({ host }) {
+export default function* watchForUserListEvent({ host }: EventsTypes.ListenerEventPayload) {
     const userListEvent = yield call(userListChannel, ircClient)
 
     while (true) {

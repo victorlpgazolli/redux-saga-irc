@@ -16,7 +16,7 @@ const whoIsEvent = (connection) =>
 
 
 
-export default function* watchForUserInfo({ host }) {
+export default function* watchForUserInfo({ host }: EventsTypes.ListenerEventPayload) {
     const whoIs = yield call(whoIsEvent, ircClient)
 
     while (true) {

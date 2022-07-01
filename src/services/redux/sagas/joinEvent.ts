@@ -13,7 +13,7 @@ const joinChannel = (connection) =>
         }
     })
 
-export default function* watchForJoinEvent({ host }) {
+export default function* watchForJoinEvent({ host }: EventsTypes.ListenerEventPayload) {
     const joinSubscription = yield call(joinChannel, ircClient)
 
     while (true) {
