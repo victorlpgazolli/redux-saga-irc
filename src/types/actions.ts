@@ -2,31 +2,30 @@ import { Connection } from "./connect";
 import { JoinIntent } from "./join";
 import { User } from "./user";
 
+interface CommonPayload {
+    host: string;
+}
 export interface ConnectionSuccessPayload {
     server: Connection;
     connection: any;
 }
-export interface DisconnectPayload {
-    host: string;
+export interface DisconnectPayload extends CommonPayload {
     removeAfterDisconnect?: boolean
 }
-export interface KickSuccessPayload {
-    host: string;
+export interface KickSuccessPayload extends CommonPayload {
     channel: string;
     nick: string;
     kicked: string;
     message?: string;
 }
-export interface UserInfoSuccessPayload {
+export interface UserInfoSuccessPayload extends CommonPayload {
     channel: string;
     users: User[];
-    host: string;
 }
 export interface UserListSuccessPayload extends UserInfoSuccessPayload { }
-export interface UserPartSuccessPayload {
+export interface UserPartSuccessPayload extends CommonPayload {
     channel: string;
     nick: string;
-    host: string;
 }
 export interface JoinSuccessPayload extends JoinIntent {
     nick: string;

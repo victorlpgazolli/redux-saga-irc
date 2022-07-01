@@ -1,3 +1,4 @@
+import { Connection } from './connect';
 import { User } from './user';
 
 export * as Connect from './connect';
@@ -11,7 +12,7 @@ export type RootState = {
     loadSuccess: boolean;
     loadFail: boolean;
     servers: {
-        [key: string]: {}
+        [key: string]: Connection
     };
     users: {
         [key: string]: Array<User>

@@ -1,8 +1,10 @@
 import { ConnectionSuccessPayload } from "./actions"
 
-export interface Connection {
+export interface Server {
     host: string
     port: number
+}
+export interface Connection extends Server {
     nick?: string
     username: string
 }
