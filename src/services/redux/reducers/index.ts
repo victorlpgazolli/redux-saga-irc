@@ -7,6 +7,7 @@ import privmsgReducer from './privmsg'
 import quitReducer from './quit'
 import userListReducer from './userList'
 import userPartReducer from './userPart'
+import motdReducer from './motd'
 
 
 const reducers = {
@@ -19,5 +20,6 @@ const reducers = {
     quitReducer,
     userListReducer,
     userPartReducer,
+    motdReducer,
 }
 export default reducers

@@ -18,6 +18,9 @@ export interface KickSuccessPayload extends CommonPayload {
     kicked: string;
     message?: string;
 }
+export interface MotdSuccessPayload extends CommonPayload {
+    motd: string;
+}
 export interface UserInfoSuccessPayload extends CommonPayload {
     channel: string;
     users: User[];

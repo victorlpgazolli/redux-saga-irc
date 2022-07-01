@@ -48,7 +48,7 @@ const rootReducer = createReducer(INITIAL_STATE, {
     [remove_error.type]: state => state,
     [joinRequest.type]: state => state,
     [part.type]: state => state,
-    [motd.type]: state => state,
+    [motd.type]: reducers.motdReducer,
     [topic.type]: state => state,
     [user_list.type]: reducers.userListReducer,
     [user_part.type]: reducers.userPartReducer,

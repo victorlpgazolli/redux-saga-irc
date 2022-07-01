@@ -40,3 +40,10 @@ export interface JoinEvent {
     channel: string,
     time: number,
 }
+export interface MotdEvent {
+    motd: string,
+    tags?: any
+}
+export interface ListenerEventPayload {
+    host: string;
+}
