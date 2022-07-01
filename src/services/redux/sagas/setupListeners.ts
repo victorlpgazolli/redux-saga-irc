@@ -7,6 +7,7 @@ import watchForPartEvent from "./partEvent";
 import watchForUserInfo from "./userInfoEvent";
 import watchForKickEvent from "./kickEvent";
 import watchForMotdEvent from "./motdEvent";
+import watchForMessageEvent from "./messageEvent";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Connect } from "@types";
 
@@ -26,5 +27,6 @@ export default function* setupListeners({ payload }: PayloadAction<Connect.Conne
     yield fork(watchForUserInfo, { host });
     yield fork(watchForKickEvent, { host });
     yield fork(watchForMotdEvent, { host });
+    yield fork(watchForMessageEvent, { host });
 
 }
