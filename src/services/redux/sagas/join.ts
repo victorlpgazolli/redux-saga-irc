@@ -3,7 +3,7 @@ import { ircActions } from "@app";
 import { join } from "@services/irc";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { joinValidator } from "@services/validators";
-import { Join } from "@types";
+import { ActionsTypes, Join } from "@types";
 
 
 export default function* joinChannel(action: PayloadAction<Join.JoinIntent>) {
@@ -14,12 +14,8 @@ export default function* joinChannel(action: PayloadAction<Join.JoinIntent>) {
         channel
     } = action.payload
 
-    const joinPayload = {
-        host,
-        channel
-    }
+    yield put({ type: ircActions.joinLoading.type, payload: action.payload });
 
-    yield put({ type: ircActions.joinLoading.type, payload: joinPayload });
     const connection = yield select(state => state.irc.connections[host])
 
     try {
