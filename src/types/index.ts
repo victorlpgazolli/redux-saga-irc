@@ -15,10 +15,10 @@ export type RootState = {
         [key: string]: Connection
     };
     users: {
-        [key: string]: Array<User>
+        [key: string]: User[]
     };
     channels: {
-        [key: string]: Array<any>
+        [key: string]: any[]
     };
     connections: {
         [key: string]: any
