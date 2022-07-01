@@ -1,7 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { ircActions } from "@app";
 import reducers from "./reducers";
-import { user_part } from "./actions";
 
 const {
     connected,
@@ -20,6 +19,8 @@ const {
     irc_error,
     joinSuccess,
     user_kick,
+    user_part,
+    message,
 } = ircActions;
 
 const operationStates = {
@@ -50,6 +51,7 @@ const rootReducer = createReducer(INITIAL_STATE, {
     [part.type]: state => state,
     [motd.type]: reducers.motdReducer,
     [topic.type]: state => state,
+    [message.type]: state => state,
     [user_list.type]: reducers.userListReducer,
     [user_part.type]: reducers.userPartReducer,
     [user_kick.type]: reducers.kickReducer,
