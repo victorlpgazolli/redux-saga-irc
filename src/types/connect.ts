@@ -1,11 +1,12 @@
+import { Host, Nick, Port, Username } from "./common";
 import { ConnectionSuccessPayload } from "./actions"
 
 export interface Server {
-    host: string
-    port: number
+    host: Host
+    port: Port
 }
 export interface Connection extends Server {
-    nick?: string
-    username: string
+    nick?: Nick
+    username: Username
 }
 export type ConnectIrc = Promise<ConnectionSuccessPayload>

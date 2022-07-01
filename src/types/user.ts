@@ -1,8 +1,10 @@
+import { ChannelName, Hostname, Ident, Modes, Nick, Tags } from "./common";
+
 export interface User {
-    nick: string,
-    ident: string,
-    hostname: string,
-    modes?: string[],
-    tags?: any;
-    channel?: string,
+    nick: Nick,
+    ident: Ident,
+    hostname: Hostname,
+    modes?: Modes,
+    tags?: Tags;
+    channel?: ChannelName,
 }

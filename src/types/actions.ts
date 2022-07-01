@@ -1,9 +1,10 @@
+import { ChannelName, Host, Hostname, Ident, Message, Motd, Nick, Tags, Target, Time } from "./common";
 import { Connection } from "./connect";
 import { JoinIntent } from "./join";
 import { User } from "./user";
 
 interface CommonPayload {
-    host: string;
+    host: Host;
 }
 export interface ConnectionSuccessPayload {
     server: Connection;
@@ -13,31 +14,40 @@ export interface DisconnectPayload extends CommonPayload {
     removeAfterDisconnect?: boolean
 }
 export interface KickSuccessPayload extends CommonPayload {
-    channel: string;
-    nick: string;
+    channel: ChannelName;
+    nick: Nick;
     kicked: string;
-    message?: string;
+    message?: Message;
+}
+export interface MessageSuccessPayload extends CommonPayload {
+    nick: Nick;
+    ident: Ident;
+    hostname: Hostname;
+    target: Target;
+    message: Message;
+    tags: Tags;
+    time: Time;
 }
 export interface MotdSuccessPayload extends CommonPayload {
-    motd: string;
+    motd: Motd;
 }
 export interface TopicSuccessPayload extends CommonPayload {
-    channel: string;
+    channel: ChannelName;
     topic: string;
-    nick: string;
+    nick: Nick;
 }
 export interface UserInfoSuccessPayload extends CommonPayload {
-    channel: string;
+    channel: ChannelName;
     users: User[];
 }
 export interface UserListSuccessPayload extends UserInfoSuccessPayload { }
 export interface UserPartSuccessPayload extends CommonPayload {
-    channel: string;
-    nick: string;
+    channel: ChannelName;
+    nick: Nick;
 }
 export interface JoinSuccessPayload extends JoinIntent {
-    nick: string;
-    ident: string;
-    hostname: string;
+    nick: Nick;
+    ident: Ident;
+    hostname: Hostname;
 }
 

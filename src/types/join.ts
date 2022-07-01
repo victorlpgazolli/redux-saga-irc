@@ -1,6 +1,7 @@
+import { ChannelName, Host } from "./common"
 
 export interface JoinIntent {
-    host: string
-    channel: string
+    host: Host
+    channel: ChannelName
 }
 

@@ -1,24 +1,34 @@
+import { ChannelName, Host, Hostname, Ident, Message, Motd, Nick, Tags, Target, Time } from "./common";
 import { User } from "./user"
 
+export interface MessageEvent {
+    nick: Nick;
+    ident: Ident;
+    hostname: Hostname;
+    target: Target;
+    message: Message;
+    tags: Tags;
+    time: Time;
+}
 export interface KickEvent {
     kicked: string,
-    nick: string,
-    ident: string,
-    hostname: string,
-    channel: string,
-    message: string,
-    time: number,
-    tags: any
+    nick: Nick,
+    ident: Ident,
+    hostname: Hostname,
+    channel: ChannelName,
+    message: Message,
+    time: Time,
+    tags: Tags
 }
 
 export interface UserPartEvent {
-    nick: string,
-    ident: string,
-    hostname: string,
-    channel: string,
-    message: string,
-    time: number,
-    tags: any
+    nick: Nick,
+    ident: Ident,
+    hostname: Hostname,
+    channel: ChannelName,
+    message: Message,
+    time: Time,
+    tags: Tags
 }
 
 export interface WhoListEvent {
@@ -28,22 +38,22 @@ export interface WhoListEvent {
 
 
 export interface UserListEvent {
-    channel: string,
+    channel: ChannelName,
     users: User[]
 }
 export interface JoinEvent {
     account: boolean,
-    nick: string,
-    ident: string,
-    hostname: string,
+    nick: Nick,
+    ident: Ident,
+    hostname: Hostname,
     gecos: string,
-    channel: string,
-    time: number,
+    channel: ChannelName,
+    time: Time,
 }
 export interface MotdEvent {
-    motd: string,
+    motd: Motd,
     tags?: any
 }
 export interface ListenerEventPayload {
-    host: string;
+    host: Host;
 }
