@@ -7,14 +7,14 @@ import watchForPartEvent from "./partEvent";
 import watchForUserInfo from "./userInfoEvent";
 import watchForKickEvent from "./kickEvent";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Connection } from "@types";
+import { Connect } from "@types";
 
 
 
 
 
 
-export default function* setupListeners({ payload }: PayloadAction<Connection>) {
+export default function* setupListeners({ payload }: PayloadAction<Connect.Connection>) {
     const {
         host
     } = payload

@@ -19,9 +19,10 @@ export interface KickSuccessPayload {
 }
 export interface UserInfoSuccessPayload {
     channel: string;
-    users: Array<User>;
+    users: User[];
     host: string;
 }
+export interface UserListSuccessPayload extends UserInfoSuccessPayload { }
 export interface UserPartSuccessPayload {
     channel: string;
     nick: string;

@@ -1,4 +1,4 @@
-import { Connection, ConnectIrc } from "@types";
+import { Connect } from "@types";
 import { ircClient, IRC_CONNECTION_TIMEOUT } from ".";
 
 export const connect = ({
@@ -6,7 +6,7 @@ export const connect = ({
     port,
     nick,
     username,
-}: Connection): ConnectIrc => new Promise((resolve, reject) => {
+}: Connect.Connection): Connect.ConnectIrc => new Promise((resolve, reject) => {
 
     const connectionPayload = {
         host,

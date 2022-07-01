@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit"
 import { ActionsTypes, RootState } from "@types"
 
-export default (state: RootState, action: PayloadAction<ActionsTypes.UserInfoSuccessPayload>) => {
+export default (state: RootState, action: PayloadAction<ActionsTypes.UserListSuccessPayload>) => {
     const {
         channel = "",
         users = [],

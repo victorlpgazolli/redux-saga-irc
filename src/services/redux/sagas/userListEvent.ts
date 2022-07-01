@@ -1,6 +1,6 @@
 import { ircActions } from "@app"
 import { ircClient } from "@services/irc"
-import { UserListEvent } from "@types"
+import { ActionsTypes, EventsTypes } from "@types"
 import { eventChannel } from "redux-saga"
 import { call, put, take } from "redux-saga/effects"
 
@@ -19,9 +19,9 @@ export default function* watchForUserListEvent({ host }) {
     const userListEvent = yield call(userListChannel, ircClient)
 
     while (true) {
-        const userList: UserListEvent = yield take(userListEvent);
+        const userList: EventsTypes.UserListEvent = yield take(userListEvent);
 
-        const userListPayload = {
+        const userListPayload: ActionsTypes.UserListSuccessPayload = {
             channel: userList.channel,
             users: userList.users,
             host

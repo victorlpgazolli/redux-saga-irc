@@ -7,7 +7,7 @@ interface Join {
 export const join = ({
     connection,
     channel
-}: Join) => new Promise((resolve, reject) => {
+}: Join): Promise<true> => new Promise((resolve, reject) => {
     const hasHash = channel.startsWith("#");
 
     const channelName = hasHash

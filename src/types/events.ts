@@ -23,13 +23,13 @@ export interface UserPartEvent {
 
 export interface WhoListEvent {
     target: string,
-    users: Array<any>
+    users: any[]
 }
 
 
 export interface UserListEvent {
     channel: string,
-    users: User
+    users: User[]
 }
 export interface JoinEvent {
     account: boolean,
