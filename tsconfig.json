@@ -5,9 +5,9 @@
             "jest"
         ],
         "target": "es6",
-        "module": "commonjs",
+        "module": "esnext",
         "esModuleInterop": true,
-        "outDir": "./dist",
+        "outDir": "./out-tsc",
         "rootDir": ".",
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,

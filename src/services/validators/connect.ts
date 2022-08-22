@@ -1,4 +1,4 @@
-import yup from 'yup';
+import * as yup from 'yup';
 
 const schema = yup.object().shape({
     host: yup.string().required("payload.host is required"),
