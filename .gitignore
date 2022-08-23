@@ -6,6 +6,7 @@ npm-debug.log
 coverage/
 .jest/
 dist/
+out-tsc/
 
 # OSX
 #

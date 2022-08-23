@@ -3,11 +3,17 @@
   "version": "0.0.2",
   "description": "Handful of utilities you should keep in your toolbelt to handle IRC connectivity in React",
   "author": "Victor Gazolli <victorlpgazolli@gmail.com> (https://github.com/victorlpgazolli)",
-  "source": "src/index.js",
-  "main": "dist/react-irc.js",
-  "module": "dist/react-irc.esm.js",
+  "source": "src/index.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.esm.js",
   "scripts": {
-    "build": "rimraf dist && rollup -c",
+    "dev": "nodemon  -r tsconfig-paths/register ./src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register -r ts-node ./src/app.ts",
+    "prebuild": "rimraf ./out-tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "postbuild": "rimraf dist && rollup -c ./rollup.config.js",
+    "pretest": "test -r ./dist || npm run build",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint --ext .js,.ts,.tsx {src,test}/**/*.{ts,tsx}",
     "precommit": "npm run lint",
     "prepublish": "npm run build"
@@ -31,16 +37,32 @@
   },
   "homepage": "https://github.com/victorlpgazolli/react-irc#readme",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.3.4",
+    "@types/jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
     "rimraf": "^3.0.2",
     "rollup": "^2.35.1",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-ts-paths": "^1.0.5",
+    "ts-jest": "^28.0.4",
+    "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0",
+    "tscpaths": "0.0.9",
+    "tslint": "^6.1.3",
+    "typescript": "^4.7.3"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "irc-framework": "^4.9.0",
-    "react-redux": "^7.2.2",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "react": "^18.2.0",
+    "react-redux": "^7.2.8",
+    "redux-saga": "^1.1.3",
+    "rxjs": "^7.5.5",
+    "yup": "^0.32.11"
   }
 }

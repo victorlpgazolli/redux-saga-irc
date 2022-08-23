@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node",
+            "jest"
+        ],
+        "target": "es6",
+        "module": "esnext",
+        "esModuleInterop": true,
+        "outDir": "./out-tsc",
+        "rootDir": ".",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "noEmit": false,
+        "allowJs": true,
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ],
+            "@*": [
+                "src/*"
+            ]
+        }
+    }
+}
