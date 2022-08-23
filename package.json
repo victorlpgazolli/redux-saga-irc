@@ -1,6 +1,6 @@
 {
   "name": "react-irc",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Handful of utilities you should keep in your toolbelt to handle IRC connectivity in React",
   "author": "Victor Gazolli <victorlpgazolli@gmail.com> (https://github.com/victorlpgazolli)",
   "source": "src/index.ts",
