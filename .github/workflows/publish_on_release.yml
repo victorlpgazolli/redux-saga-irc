@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Publish package to npmjs registry
 on:
   release:
     types: [created]
@@ -15,9 +15,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm test
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
