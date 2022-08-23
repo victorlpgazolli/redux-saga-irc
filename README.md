@@ -42,18 +42,21 @@ $ npm i redux-irc
 ### Setup
 ```js
 // src/store/index.js
-import { createStore, combineReducers } from 'redux'
-import { reducer as irc } from 'redux-irc';
+import { createStore, combineReducers, applyMiddleware } from "@reduxjs/toolkit";
+import { ircReducer, createSagaMiddleware, ircSagas } from "redux-irc";
 
-const rootReducer = combineReducers({
-  // ... your other reducers here ...
-  irc,
-});
+const sagaMiddleware = createSagaMiddleware() // same as redux-sagas's
+export const store = createStore(
+    combineReducers({
+        irc: ircReducer
+    }),
+    applyMiddleware(sagaMiddleware)
+)
+sagaMiddleware.run(ircSagas)
 
-const store = createStore(rootReducer);
-export default store;
+
 ```
-
+- [Getting started](./docs/getting-started.md)
 
 ## Contributions
 PRs are more than welcome. If you're planning to contribute please make sure to read the contributing guide: [CONTRIBUTING.md](https://github.com/victorlpgazolli/redux-irc/blob/master/CONTRIBUTING.md)

@@ -1,21 +1,4 @@
-# Getting Started with React IRC
-
-## Install
-
-```bash
-
-npm i redux-irc
-
-```
-
-or
-
-```bash
-
-yarn add redux-irc
-
-```
-
+- [install && setup](./setup.md)
 
 ## Usage Example
 
