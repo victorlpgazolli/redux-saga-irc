@@ -1,5 +1,5 @@
 {
-  "name": "react-irc",
+  "name": "redux-irc",
   "version": "1.0.0",
   "description": "Handful of utilities you should keep in your toolbelt to handle IRC connectivity in React",
   "author": "Victor Gazolli <victorlpgazolli@gmail.com> (https://github.com/victorlpgazolli)",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/victorlpgazolli/react-irc.git"
+    "url": "git+https://github.com/victorlpgazolli/redux-irc.git"
   },
   "keywords": [
     "react-native",
@@ -33,9 +33,9 @@
     "dist"
   ],
   "bugs": {
-    "url": "https://github.com/victorlpgazolli/react-irc/issues"
+    "url": "https://github.com/victorlpgazolli/redux-irc/issues"
   },
-  "homepage": "https://github.com/victorlpgazolli/react-irc#readme",
+  "homepage": "https://github.com/victorlpgazolli/redux-irc#readme",
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-typescript": "^7.17.12",

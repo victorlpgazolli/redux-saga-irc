@@ -4,7 +4,7 @@
 
 ```bash
 
-npm i react-irc
+npm i redux-irc
 
 ```
 
@@ -12,7 +12,7 @@ or
 
 ```bash
 
-yarn add react-irc
+yarn add redux-irc
 
 ```
 
@@ -23,7 +23,7 @@ Suppose we have a UI to connect to a IRC server when the page is mounted
 
 ```js
 
-import {ircActions} from 'react-irc';
+import {ircActions} from 'redux-irc';
 import {useDispatch} from 'react-redux';
 
 export const MyReactFunction(){
