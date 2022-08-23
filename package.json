@@ -12,7 +12,7 @@
     "prebuild": "rimraf ./out-tsc",
     "build": "tsc -p tsconfig.build.json",
     "postbuild": "rimraf dist && rollup -c ./rollup.config.js",
-    "pretest": "npm run build",
+    "pretest": "test -r ./dist || npm run build",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "eslint --ext .js,.ts,.tsx {src,test}/**/*.{ts,tsx}",
     "precommit": "npm run lint",
